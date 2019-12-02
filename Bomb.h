@@ -9,6 +9,7 @@ public:
     Bomb();
     Bomb(int, int );
     void onClick();
+    virtual void print() const;
 
 };
 
