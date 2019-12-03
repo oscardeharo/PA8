@@ -3,10 +3,14 @@
 #include <typeinfo>
 
 Game::Game(){
+    sf::RenderWindow window(sf::VideoMode(WINX,WINY), "SMFL Tutorial",sf::Style::Close|sf::Style::Resize);    
+    window.clear(sf::Color::Black);  //window background color
+
     setup();
 }
 void Game::setup(){
     minesLeft = BOMBNUMBER;
+    
     //Build Grid
     //int x=0;
     for (int i=0;i<10;i++){
@@ -31,15 +35,13 @@ void Game::setup(){
         cells[ranRow][ranColumn]=new Bomb(ranRow,ranColumn);
         //cout<<typeid(*cells[ranRow][ranColumn]).name()<<endl;
         //cout<<cells[ranRow][ranColumn]->getType()<<endl;
-        cells[ranRow][ranColumn]->print();
+        //cells[ranRow][ranColumn]->print();
     }
     
     //Get number of adyacent mines
     for (int i=0;i<10;i++){
         for (int j=0;j<10;j++){
             checkAdjMines(*(cells[i][j]));
-            
-            //setAdjMines
         }
     }
     
@@ -72,7 +74,7 @@ void Game::checkAdjMines(Cell cell){
             total++;
         }
     } 
-    exit(0);
+    //exit(0);
 
     //Up
     if(isValid(x,y+1)){
@@ -140,5 +142,30 @@ bool Game::isValid(int x,int y){
     }
     else{
        return false;
+    }
+}
+
+void Game::start(){
+    while(window.isOpen()){
+        sf::Event evnt;
+        while(window.pollEvent(evnt)){
+
+            switch (evnt.type){
+                case sf::Event::Closed:
+                    window.close();
+                    break; 
+                case sf::Event::Resized:
+                    cout<<evnt.size.width<<endl;
+                    break; 
+                default:
+                
+                    break;
+            }
+        }
+        
+        //window.draw();
+        //window.draw(c2);
+
+        window.display();
     }
 }

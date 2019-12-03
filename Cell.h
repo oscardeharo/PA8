@@ -1,7 +1,7 @@
 #ifndef CELL_H
 #define CELL_H
 
-
+#include <SFML/Graphics.hpp>
 #include<iostream>
 using namespace std;
 
@@ -14,9 +14,12 @@ private:
     int adjMines;
     string type;
     bool isValid(int,int);
+    sf::RectangleShape body;
 
 public:
     void setType(string);
+    void draw(sf::RenderWindow window);
+    void display(sf::RenderWindow window);
     string getType();
     int getX() const;
     int getY() const;

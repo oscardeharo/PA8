@@ -7,6 +7,7 @@ Cell::Cell(){
     type="";
     isActive = false;
     isFlagged = false;
+    sf::RectangleShape body(sf::Vector2f(0,0));
 }
 
 Cell::Cell(int X, int Y){
@@ -16,6 +17,14 @@ Cell::Cell(int X, int Y){
     type="";
     isActive = false;
     isFlagged = false;
+    //Body
+    sf::RectangleShape body(sf::Vector2f(CELLSIZE,CELLSIZE));
+    body.setFillColor(sf::Color::White);
+    body.setOutlineThickness(10);
+    body.setOutlineColor(sf::Color(155,155,155));
+    body.setPosition(X*CELLSIZE,Y*CELLSIZE);
+
+    
 }
 
 void Cell::print() const{
@@ -55,3 +64,7 @@ void Cell::setType(string s){
 string Cell::getType(){
     return type;
 }
+
+void Cell::draw(sf::RenderWindow window){
+    window.draw(body);
+} 
