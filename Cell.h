@@ -18,8 +18,9 @@ private:
 
 public:
     void setType(string);
-    void draw(sf::RenderWindow window);
-    void display(sf::RenderWindow window);
+    void draw(sf::RenderWindow& window);
+    void display(sf::RenderWindow& window);
+    sf::RectangleShape getBody();
     string getType();
     int getX() const;
     int getY() const;

@@ -34,6 +34,8 @@ public:
     Game();
     void print() const;
     void start();
+    void drawAll();
+    void displayAll();
 
 };
 

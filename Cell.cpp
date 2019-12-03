@@ -18,11 +18,12 @@ Cell::Cell(int X, int Y){
     isActive = false;
     isFlagged = false;
     //Body
-    sf::RectangleShape body(sf::Vector2f(CELLSIZE,CELLSIZE));
+    body.setSize(sf::Vector2f(CELLSIZE,CELLSIZE));
     body.setFillColor(sf::Color::White);
     body.setOutlineThickness(10);
     body.setOutlineColor(sf::Color(155,155,155));
     body.setPosition(X*CELLSIZE,Y*CELLSIZE);
+
 
     
 }
@@ -65,6 +66,14 @@ string Cell::getType(){
     return type;
 }
 
-void Cell::draw(sf::RenderWindow window){
+void Cell::draw(sf::RenderWindow& window){
     window.draw(body);
 } 
+
+// void Cell::display(sf::RenderWindow& window){
+//     window.display(body);
+// } 
+
+sf::RectangleShape Cell::getBody(){
+    return body;
+}

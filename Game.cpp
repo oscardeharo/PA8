@@ -3,8 +3,7 @@
 #include <typeinfo>
 
 Game::Game(){
-    sf::RenderWindow window(sf::VideoMode(WINX,WINY), "SMFL Tutorial",sf::Style::Close|sf::Style::Resize);    
-    window.clear(sf::Color::Black);  //window background color
+    
 
     setup();
 }
@@ -18,8 +17,12 @@ void Game::setup(){
             //x++;
             //cout<<i<<"\t"<<j<<endl;
             //Number temp(i,j);
-            cells[i][j] = new Number(i,j);
+            cells[j][i] = new Number(i,j); //cells is [j][i] to keep cells[row][column] convention
             //cout<<typeid(*cells[i][j]).name()<<endl;
+            // cout<<"Given pos: ";
+            // cout<<i;
+            // cout<<" Pos from body :";
+            // cout<<cells[i][j]->getBody().getPosition().y<<endl;
 
         }
     }
@@ -32,11 +35,12 @@ void Game::setup(){
         //Bomb b(ranRow,ranColumn);
         //b.print();
 
-        cells[ranRow][ranColumn]=new Bomb(ranRow,ranColumn);
+        cells[ranColumn][ranRow]=new Bomb(ranRow,ranColumn);
         //cout<<typeid(*cells[ranRow][ranColumn]).name()<<endl;
         //cout<<cells[ranRow][ranColumn]->getType()<<endl;
         //cells[ranRow][ranColumn]->print();
     }
+
     
     //Get number of adyacent mines
     for (int i=0;i<10;i++){
@@ -44,6 +48,7 @@ void Game::setup(){
             checkAdjMines(*(cells[i][j]));
         }
     }
+
     
 }
 
@@ -146,6 +151,19 @@ bool Game::isValid(int x,int y){
 }
 
 void Game::start(){
+    //cout<<"here"<<endl;
+    sf::RectangleShape c1(sf::Vector2f(CELLSIZE,CELLSIZE));
+    c1.setPosition(0*CELLSIZE,0*CELLSIZE);
+    c1.setFillColor(sf::Color::White);
+    c1.setOutlineThickness(10);
+    c1.setOutlineColor(sf::Color(155,155,155));
+    //cout<<cells[3][3]->getBody().getPosition().x<<endl;
+    //cout<<c1.getPosition().x<<endl;
+    //exit(0);
+    //Window
+    sf::RenderWindow window(sf::VideoMode(WINX,WINY), "SMFL Tutorial",sf::Style::Close|sf::Style::Resize);    
+    
+
     while(window.isOpen()){
         sf::Event evnt;
         while(window.pollEvent(evnt)){
@@ -162,10 +180,33 @@ void Game::start(){
                     break;
             }
         }
-        
-        //window.draw();
-        //window.draw(c2);
 
+        window.clear(sf::Color::Black);  //window background color
+        
+        //TODO: figure out why the drawAll doesnt work
+        for (int i=0;i<10;i++){
+            for (int j=0;j<10;j++){
+                cells[i][j]->draw(window);
+            }
+        }
         window.display();
+    }
+}
+
+void Game::drawAll(){
+    
+    cells[4][6]->draw(window);
+    // for (int i=0;i<10;i++){
+    //     for (int j=0;j<10;j++){
+    //         cells[i][j]->draw(window);
+    //     }
+    // }
+}
+
+void Game::displayAll(){
+    for (int i=0;i<10;i++){
+        for (int j=0;j<10;j++){
+            //cells[i][j]->display(window);
+        }
     }
 }
