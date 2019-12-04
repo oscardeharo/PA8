@@ -26,7 +26,16 @@ int main(){
     // c2.setFillColor(sf::Color::White);
     // c2.setOutlineThickness(10);
     // c2.setOutlineColor(sf::Color(155,155,155));
+
+    // sf::Text text;
+    // text.setString("A");
+    // sf::Font arial;
+    // arial.loadFromFile("30431287674.ttf");
+    // text.setFont(arial);
+    // text.setPosition(0*CELLSIZE,0*CELLSIZE);
     
+    // text.setFillColor(sf::Color::Black);
+
     // while(window.isOpen()){
     //     sf::Event evnt;
     //     while(window.pollEvent(evnt)){
@@ -44,7 +53,8 @@ int main(){
     //         }
     //     }
     //     window.clear(sf::Color::Black);  //window background color
-    //     window.draw(c1);
+    //     //window.draw(c1);
+    //     //window.draw(text);
     //     //window.draw(c2);
     //     //cout<<"here"<<endl;
     //     window.display();

@@ -8,6 +8,8 @@ Cell::Cell(){
     isActive = false;
     isFlagged = false;
     sf::RectangleShape body(sf::Vector2f(0,0));
+    sf::Text text;
+    
 }
 
 Cell::Cell(int X, int Y){
@@ -17,6 +19,16 @@ Cell::Cell(int X, int Y){
     type="";
     isActive = false;
     isFlagged = false;
+
+
+    //Text
+    text.setString("A");
+    sf::Font arial;
+    arial.loadFromFile("30431287674.ttf");
+    text.setFont(arial);
+    text.setPosition(X*CELLSIZE,Y*CELLSIZE);
+    text.setFillColor(sf::Color::Red);
+
     //Body
     body.setSize(sf::Vector2f(CELLSIZE,CELLSIZE));
     body.setFillColor(sf::Color::White);
@@ -25,7 +37,6 @@ Cell::Cell(int X, int Y){
     body.setPosition(X*CELLSIZE,Y*CELLSIZE);
 
 
-    
 }
 
 void Cell::print() const{
@@ -66,9 +77,22 @@ string Cell::getType(){
     return type;
 }
 
-void Cell::draw(sf::RenderWindow& window){
+void Cell::drawB(sf::RenderWindow& window){
     window.draw(body);
+    
+    window.draw(text);
+    //cout<<"here\n";
 } 
+void Cell::drawT(sf::RenderWindow& window){
+    
+    window.draw(text);
+    string s = text.getString();
+        cout<<s<<endl;
+        exit(0);
+    
+    //window.draw(text);
+    //cout<<"here\n";
+}
 
 // void Cell::display(sf::RenderWindow& window){
 //     window.display(body);
@@ -76,4 +100,7 @@ void Cell::draw(sf::RenderWindow& window){
 
 sf::RectangleShape Cell::getBody(){
     return body;
+}
+sf::Text Cell::getText(){
+    return text;
 }

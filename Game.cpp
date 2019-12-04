@@ -11,7 +11,6 @@ void Game::setup(){
     minesLeft = BOMBNUMBER;
     
     //Build Grid
-    //int x=0;
     for (int i=0;i<10;i++){
         for (int j=0;j<10;j++){
             //x++;
@@ -162,7 +161,9 @@ void Game::start(){
     //exit(0);
     //Window
     sf::RenderWindow window(sf::VideoMode(WINX,WINY), "SMFL Tutorial",sf::Style::Close|sf::Style::Resize);    
-    
+    //Font
+    //sf::Font arial;
+    //arial.loadFromFile("font/30431287674.ttf");
 
     while(window.isOpen()){
         sf::Event evnt;
@@ -182,20 +183,29 @@ void Game::start(){
         }
 
         window.clear(sf::Color::Black);  //window background color
+        cells[0][0]->drawB(window);
+        //cells[0][0]->drawT(window);
         
+
+
         //TODO: figure out why the drawAll doesnt work
-        for (int i=0;i<10;i++){
-            for (int j=0;j<10;j++){
-                cells[i][j]->draw(window);
-            }
-        }
+        // for (int i=0;i<10;i++){
+        //     for (int j=0;j<10;j++){
+        //         cells[i][j]->drawB(window);
+        //     }
+        // }
+        // for (int i=0;i<10;i++){
+        //     for (int j=0;j<10;j++){
+        //         cells[i][j]->drawT(window);
+        //     }
+        // }
         window.display();
     }
 }
 
 void Game::drawAll(){
     
-    cells[4][6]->draw(window);
+    //cells[4][6]->draw(window);
     // for (int i=0;i<10;i++){
     //     for (int j=0;j<10;j++){
     //         cells[i][j]->draw(window);
@@ -203,10 +213,10 @@ void Game::drawAll(){
     // }
 }
 
-void Game::displayAll(){
-    for (int i=0;i<10;i++){
-        for (int j=0;j<10;j++){
-            //cells[i][j]->display(window);
-        }
-    }
-}
+// void Game::displayAll(){
+//     for (int i=0;i<10;i++){
+//         for (int j=0;j<10;j++){
+//             //cells[i][j]->display(window);
+//         }
+//     }
+// }

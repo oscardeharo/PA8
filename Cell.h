@@ -15,12 +15,17 @@ private:
     string type;
     bool isValid(int,int);
     sf::RectangleShape body;
+    sf::Text text;
+    //static sf::Font arial;
+    
 
 public:
     void setType(string);
-    void draw(sf::RenderWindow& window);
+    void drawB(sf::RenderWindow& window);
+    void drawT(sf::RenderWindow& window);
     void display(sf::RenderWindow& window);
     sf::RectangleShape getBody();
+    sf::Text getText();
     string getType();
     int getX() const;
     int getY() const;
@@ -32,5 +37,6 @@ public:
     void setAdjMines(int);
 
 };
+
 
 #endif
