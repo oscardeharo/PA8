@@ -12,7 +12,7 @@ Cell::Cell(){
     
 }
 
-Cell::Cell(int X, int Y){
+Cell::Cell(string s,int X, int Y, sf::Font &font, int size){
     x = X;
     y = Y;
     adjMines=0;
@@ -20,21 +20,19 @@ Cell::Cell(int X, int Y){
     isActive = false;
     isFlagged = false;
 
-
     //Text
-    text.setString("A");
-    sf::Font arial;
-    arial.loadFromFile("30431287674.ttf");
-    text.setFont(arial);
-    text.setPosition(X*CELLSIZE,Y*CELLSIZE);
+    text.setString(s);
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setPosition(X,Y);
     text.setFillColor(sf::Color::Red);
 
     //Body
-    body.setSize(sf::Vector2f(CELLSIZE,CELLSIZE));
+    body.setSize(sf::Vector2f(size,size));
     body.setFillColor(sf::Color::White);
     body.setOutlineThickness(10);
     body.setOutlineColor(sf::Color(155,155,155));
-    body.setPosition(X*CELLSIZE,Y*CELLSIZE);
+    body.setPosition(X,Y);
 
 
 }
@@ -103,4 +101,9 @@ sf::RectangleShape Cell::getBody(){
 }
 sf::Text Cell::getText(){
     return text;
+}
+
+void Cell::draw(sf::RenderWindow& window){
+    window.draw(body);
+    window.draw(text);
 }

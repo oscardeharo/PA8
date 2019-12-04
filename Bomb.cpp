@@ -5,7 +5,7 @@ Bomb::Bomb(){
     isDisplayed=false;
 }
 
-Bomb::Bomb(int X, int Y):Cell(X,Y){
+Bomb::Bomb(string s,int X, int Y, sf::Font font, int size):Cell(s,X,Y,font,size){
     setType("bomb");
     isDisplayed=false;
 }

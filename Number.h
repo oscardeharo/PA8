@@ -6,7 +6,7 @@ class Number: public Cell{
 
 public:
     void onClick();
-    Number(int, int);
+    Number(string, int, int,sf::Font&,int);
 
 };
 

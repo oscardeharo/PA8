@@ -30,11 +30,12 @@ public:
     int getX() const;
     int getY() const;
     Cell();
-    Cell(int, int);
+    Cell(string, int, int,sf::Font&,int);
     virtual void onClick();
     void onRightClick();
     virtual void print() const;
     void setAdjMines(int);
+    void draw(sf::RenderWindow&);
 
 };
 

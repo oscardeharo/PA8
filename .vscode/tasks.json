@@ -18,7 +18,6 @@
                 //
                 "-g",
                 "-v",
-                "Game.cpp",
                 "Cell.cpp",
                 "Bomb.cpp",
                 "Number.cpp"

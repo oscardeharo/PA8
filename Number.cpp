@@ -1,6 +1,6 @@
 #include "Number.h"
 
-Number::Number(int X, int Y):Cell(X,Y){
+Number::Number(string s,int X, int Y, sf::Font &font,int size):Cell(s,X,Y,font,size){
     setType("number");
 }
 
