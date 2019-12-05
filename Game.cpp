@@ -185,20 +185,7 @@ void Game::start(){
         window.clear(sf::Color::Black);  //window background color
         cells[0][0]->drawB(window);
         //cells[0][0]->drawT(window);
-        
 
-
-        //TODO: figure out why the drawAll doesnt work
-        // for (int i=0;i<10;i++){
-        //     for (int j=0;j<10;j++){
-        //         cells[i][j]->drawB(window);
-        //     }
-        // }
-        // for (int i=0;i<10;i++){
-        //     for (int j=0;j<10;j++){
-        //         cells[i][j]->drawT(window);
-        //     }
-        // }
         window.display();
     }
 }

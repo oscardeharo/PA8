@@ -5,8 +5,9 @@ Bomb::Bomb(){
     isDisplayed=false;
 }
 
-Bomb::Bomb(string s,int X, int Y, sf::Font font, int size):Cell(s,X,Y,font,size){
+Bomb::Bomb(string s,int X, int Y, sf::Font& font, int size):Cell(s,X,Y,font,size){
     setType("bomb");
+    //setTextColor(sf::Color::Red);
     isDisplayed=false;
 }
 void Bomb::onClick(){

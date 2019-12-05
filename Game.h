@@ -8,14 +8,6 @@
 
 
 
-//TODO: ask how to install Graphics
-//
-const int BOMBNUMBER =10;
-const int GRIDSIZE = 10;
-const int CELLSIZE = 80;
-const int WINX = 1500;
-const int WINY = 1500;
-
 
 
 class Game{

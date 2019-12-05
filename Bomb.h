@@ -7,7 +7,7 @@ class Bomb: public Cell{
 
 public:
     Bomb();
-    Bomb(string, int, int,sf::Font,int);
+    Bomb(string, int, int,sf::Font&,int);
     void onClick();
     virtual void print() const;
 
