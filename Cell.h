@@ -20,6 +20,7 @@ private:
     int x, y,xInd,yInd;
     bool isFlagged;
     bool isActive;
+    bool isRevealed;
     int adjMines;
     string type;
     sf::RectangleShape body;
@@ -51,6 +52,13 @@ public:
     void setTextPosition(int, int);
     void setAdjMines(int);
     void setUpAdjMines(Cell * cells[][GRIDSIZE]);
+    void update(int,int);
+    bool isHover(int,int);
+    void setText(string);
+    void flag();
+    string getString();
+    int getAdjMines();
+    void revealRecursive(Cell * cells[][GRIDSIZE],Cell* cell);
 
 };
 

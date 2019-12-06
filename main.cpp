@@ -19,6 +19,8 @@ int main(){
     Bomb bombs[BOMBNUMBER];             // Create Bombs array
     int minesLeft = BOMBNUMBER;;        //keeps track of found bombs
 
+    //Mouse Position Variables
+    int mouseX, mouseY;
     //Font for Text
     sf::Font arial;
     arial.loadFromFile("30431287674.ttf");
@@ -27,9 +29,10 @@ int main(){
     for (int i=0;i<10;i++){
         for (int j=0;j<10;j++){
             //Create Cells
-            cells[i][j] = new Number("N",i*CELLSIZE,j*CELLSIZE,arial,CELLSIZE); //cells is [j][i] to keep cells[row][column] convention
+            cells[i][j] = new Number("",i*CELLSIZE,j*CELLSIZE,arial,CELLSIZE); //cells is [j][i] to keep cells[row][column] convention
 
             //Set offset position of text
+            
             cells[i][j]->setTextPosition(i*CELLSIZE+CELLSIZE/4,j*CELLSIZE+CELLSIZE/4);
             //cout<<cells[j][i]->getType().compare("bomb")<<endl;
         }
@@ -51,12 +54,12 @@ int main(){
         int y=getRandomNumber(0,GRIDSIZE-1);
         //x=xx[i];
         //y=yy[i];
-        cells[x][y]=new Bomb("B",x*CELLSIZE,y*CELLSIZE,arial,CELLSIZE);
+        cells[x][y]=new Bomb("",x*CELLSIZE,y*CELLSIZE,arial,CELLSIZE);
         cells[x][y]->setTextPosition(x*CELLSIZE+CELLSIZE/4,y*CELLSIZE+CELLSIZE/4);
         cells[x][y]->setBodyColor(redColor);
 
-        cout<<"Bomb- X: "<<cells[x][y]->getXInd();
-        cout<<" Y: "<<cells[x][y]->getYInd()<<endl;
+        //cout<<"Bomb- X: "<<cells[x][y]->getXInd();
+        //cout<<" Y: "<<cells[x][y]->getYInd()<<endl;
         //cout<<cells[ranColumn][ranRow]->getType().compare("bomb")<<endl;
 
         
@@ -87,11 +90,6 @@ int main(){
     for (int i=0;i<10;i++){
         for (int j=0;j<10;j++){
             cells[i][j]->setUpAdjMines(cells);
-            cout<<"X = "<<i<<" Y = "<<j<<endl;
-                if (i==7 && j==2){
-                    //exit(0);
-                }
-            //exit(0);
         }
     }
 
@@ -115,11 +113,54 @@ int main(){
         }
         window.clear(sf::Color::Black);  //window background color
 
+        mouseX=sf::Mouse::getPosition(window).x;
+        mouseY=sf::Mouse::getPosition(window).y;
+    
+        //For all buttons
         for (int i=0;i<10;i++){
             for (int j=0;j<10;j++){
+
+                //Draw
                 cells[i][j]->draw(window);
+
+                //Check status
+                //if hovered
+                if(cells[i][j]->isHover(mouseX,mouseY)){
+                    //cout<<"Cell "<<cells[i][j]->getXInd()<<" "<<cells[i][j]->getYInd()<<endl;
+                    //maybe change color
+
+                    //if pressed with left
+                    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                        //lose if bomb
+                        //cells[i][j]->onClick();
+                        
+                        //cells[i][j]->setText(to_string(cells[i][j]->getAdjMines()));
+                        cells[i][j]->revealRecursive(cells,cells[i][j]);
+                        //cells[i][j]->setBodyColor(blueColor);
+
+                        //open if number
+                    }
+                    //if pressed with right, flagg
+                    if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
+                        
+                        //cells[i][j]->flag();
+                        //sleep(1);
+                        //cells[i][j]->setText("F");
+
+                        cells[i][j]->onClick();
+                        cells[i][j]->setBodyColor(redColor);
+                    }
+
+                }
+          
+
             }
         }
+        
+        //Update
+        
+
+
         
         window.display();
     }
