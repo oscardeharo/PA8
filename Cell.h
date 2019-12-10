@@ -26,17 +26,10 @@ private:
     sf::RectangleShape body;
     sf::Text text;
     bool isValid(int,int);
-    //static sf::Font arial;
     
 
 public:
-    //bool isRevealed;
     void setType(string);
-    void drawB(sf::RenderWindow& window);
-    void drawT(sf::RenderWindow& window);
-  
-    sf::RectangleShape getBody();
-    sf::Text getText();
     string getType();
     int getX() const;
     int getY() const;
@@ -44,16 +37,12 @@ public:
     int getYInd() const;
     Cell();
     Cell(string, int, int,sf::Font&,int);
-    virtual void onClick();
-    void onRightClick();
-    virtual void print() const;
     void draw(sf::RenderWindow&);
     void setBodyColor(const sf::Color&);
     void setTextColor(sf::Color&);
     void setTextPosition(int, int);
     void setAdjMines(int);
     void setUpAdjMines(Cell * cells[][GRIDSIZE]);
-    void update(int,int);
     bool isHover(int,int);
     void setText(string);
     void flag();

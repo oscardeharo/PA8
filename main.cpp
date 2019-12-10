@@ -1,4 +1,12 @@
 
+/************************************************************************
+ *                            ..::PA8::..                               *
+ *                                                                      *
+ * Programmer: Oscar de Haro                                            *
+ * Class: CptS 122, Fall, 2019                                          *
+ * Date: Dec 9, 2019                                                    *
+ * Description: This program simulates a minesweeper game               *
+ ************************************************************************/
 #include"Number.h"
 #include "Bomb.h"
 #include <SFML/Graphics.hpp>
@@ -6,12 +14,12 @@
 #include <typeinfo>
 
 
-
 int getRandomNumber(int, int);
 
 
 int main(){
     
+    //Setup
     Cell *cells[GRIDSIZE][GRIDSIZE];    //Create Cell Grid Data Matrix
     Bomb *bombs[BOMBNUMBER];             // Create Bombs array
     int minesLeft = BOMBNUMBER;        //keeps track of found bombs
@@ -33,7 +41,7 @@ int main(){
     for (int i=0;i<10;i++){
         for (int j=0;j<10;j++){
             //Create Cells
-            cells[i][j] = new Number("",i*CELLSIZE,j*CELLSIZE,arial,CELLSIZE); //cells is [j][i] to keep cells[row][column] convention
+            cells[i][j] = new Number("",i*CELLSIZE,j*CELLSIZE,arial,CELLSIZE); 
 
             //Set offset position of text
             cells[i][j]->setTextPosition(i*CELLSIZE+CELLSIZE/4,j*CELLSIZE+CELLSIZE/4);
@@ -53,25 +61,27 @@ int main(){
     int xx[10];
     int yy[10];
     
-    //Make a new array when ever there is a repeated positions
+    //Make a new array whenever there is a repeated positions
     int n=0;
     srand( time(0) );
     do{
         n=0;
+
+        //Populate array with initial positions
         for (int i=0;i<BOMBNUMBER;i++){
             int x=getRandomNumber(0,GRIDSIZE-1);
             int y=getRandomNumber(0,GRIDSIZE-1);
             xx[i]=x;
             yy[i]=y;
         }
+
+        //Check for repeated positions
         for (int i=0;i<BOMBNUMBER;i++){
             for (int j=0;j<BOMBNUMBER;j++){
                 if(xx[i]==xx[j]&&yy[i]==yy[j])
                 n++;
             }
         }
-
-        //cout<<n<<endl;
 
     }while(n>BOMBNUMBER);
 
@@ -120,9 +130,7 @@ int main(){
         // While not all bomb cells have been flagged
         if(minesLeft>0&&!gameOver){
 
-            //Display how many mines are left
-
-            //Get cursos positions
+            //Get cursor position
             mouseX=sf::Mouse::getPosition(window).x;
             mouseY=sf::Mouse::getPosition(window).y;
 
@@ -163,7 +171,7 @@ int main(){
                                 }
 
                                 //if you click on a non-bomb,
-                                else{
+                                else if(!cells[i][j]->isRevealed()){
                                     //Reveal cells around clicked cell
                                     cells[i][j]->revealRecursive(cells,cells[i][j]);
                                 }
@@ -172,8 +180,9 @@ int main(){
 
                         //If cell is clicked with right button
                         if(sf::Mouse::isButtonPressed(sf::Mouse::Right)&&!isPressed){
+
                             isPressed=true;
-                            //cout<<"Here"<<endl;
+
                             //if cell is not revealed and not flagged
                             if(!cells[i][j]->isRevealed()&&!cells[i][j]->isFlagged()){
                                 
@@ -187,17 +196,22 @@ int main(){
                                     minesLeft--;
                                 }
                             }
-                            else if(!cells[i][j]->isRevealed()){
 
+                            //if it its not revealed
+                            else if(!cells[i][j]->isRevealed()){
+                                
+                                // if a bomb is flagged
                                 if(cells[i][j]->getType().compare("bomb")==0){
                                     minesLeft++;
                                 }
 
+                                //unflag cell
                                 cells[i][j]->unflag();
                                 flagsPlaced++;
                             }
-                            cout<<minesLeft<<endl;
+      
                         }
+
                         if(!sf::Mouse::isButtonPressed(sf::Mouse::Right)){
                             isPressed=false;
                         }
@@ -244,7 +258,9 @@ int main(){
     return 0;
 }
 
+/****************************************************
+ * Returns an integer within range min and max      *
+ ***************************************************/
 int getRandomNumber(int min, int max){
-
     return min + rand() % (( max + 1 ) - min);
 }
