@@ -7,8 +7,9 @@ class Number: public Cell{
 public:
     void onClick();
     Number(string, int, int,sf::Font&,int);
+    void reveal();
 
 };
 
 
-#endif
+#endif 

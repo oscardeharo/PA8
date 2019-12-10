@@ -1,3 +1,4 @@
+#include <SFML/Graphics.hpp>
 #include "Bomb.h"
 Bomb::Bomb(){
     Cell();
@@ -16,4 +17,9 @@ void Bomb::onClick(){
 
 void Bomb::print() const{
     cout<<"PosX "<<getX()<<"\t"<<"PosY "<<getY()<<" Bomb"<<endl;
+}
+
+void Bomb::reveal(){
+    Cell::reveal();
+    setBodyColor(sf::Color::Red);
 }

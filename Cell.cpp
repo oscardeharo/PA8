@@ -6,9 +6,9 @@ Cell::Cell(){
     y=0;
     adjMines=0;
     type="";
-    isRevealed = false;
+    revealed = false;
     isActive = false;
-    isFlagged = false;
+    Flagged = false;
     sf::RectangleShape body(sf::Vector2f(0,0));
     sf::Text text;
     
@@ -22,7 +22,7 @@ Cell::Cell(string s,int X, int Y, sf::Font &font, int size){
     adjMines=0;
     type="";
     isActive = false;
-    isFlagged = false;
+    Flagged = false;
 
     //Text
     text.setString(s);
@@ -35,7 +35,7 @@ Cell::Cell(string s,int X, int Y, sf::Font &font, int size){
     body.setSize(sf::Vector2f(size,size));
     body.setFillColor(sf::Color::White);
     body.setOutlineThickness(2);
-    body.setOutlineColor(sf::Color(155,155,155));
+    body.setOutlineColor(sf::Color(100,100,100));
     body.setPosition(X,Y);
 
 
@@ -112,7 +112,7 @@ void Cell::setTextPosition(int x, int y){
     text.setPosition(x,y);
 }
 
-void Cell::setBodyColor(sf::Color& color){
+void Cell::setBodyColor(const sf::Color& color){
     body.setFillColor(color);
 }
 
@@ -258,16 +258,13 @@ bool Cell::isHover(int mouseX, int mouseY){
 
 void Cell::flag(){
     //if its already flagged
-    if(this->isFlagged){
-        text.setString("");
-        body.setFillColor(sf::Color::White);
-    }
-    else{
-        text.setString("F");
-        body.setFillColor(sf::Color::Blue);
-    }
+    setBodyColor(sf::Color::Blue);
+    Flagged = true;
+}
 
-    isFlagged=!isFlagged;
+void Cell::unflag(){
+    setBodyColor(sf::Color::White);
+    Flagged = false;
 }
 
 int Cell::getAdjMines(){
@@ -298,7 +295,7 @@ void Cell::revealRecursive(Cell *cells[][GRIDSIZE],Cell* cell){
     //UpperLeft
     //Up  
     //UpperRight
-    //if there are no bombs aroun
+    //if there are bombs aroun
     if((isValid(x-1,y+1)&&cells[x-1][y+1]->getType().compare("bomb")==0)||//Downleft
     (isValid(x,y+1)&&cells[x][y+1]->getType().compare("bomb")==0)||//Down
     (isValid(x+1,y+1)&&cells[x+1][y+1]->getType().compare("bomb")==0)||//Downright
@@ -308,21 +305,64 @@ void Cell::revealRecursive(Cell *cells[][GRIDSIZE],Cell* cell){
     (isValid(x,y-1)&&cells[x][y-1]->getType().compare("bomb")==0)||//Up
     (isValid(x+1,y-1)&&cells[x+1][y-1]->getType().compare("bomb")==0))//upright
     {
-        cout<<"Bomb around"<<endl;
+        //cout<<"Bomb around"<<endl;
+        
+        reveal();
+        return;
     }
     else{
-        cout<<"No bomb around"<<endl;
+
+        //cout<<"No bomb around"<<endl;
+        //Reveal all around
+        reveal();
+        if(isValid(x-1,y+1))//Down left
+            cells[x-1][y+1]->reveal();
+        if(isValid(x,y+1))
+            cells[x][y+1]->reveal();//Down left
+        if(isValid(x+1,y+1) )
+            cells[x+1][y+1]->reveal();
+        if(isValid(x-1,y))
+            cells[x-1][y]->reveal();
+        if(isValid(x+1,y))
+            cells[x+1][y]->reveal();
+        if(isValid(x-1,y-1))
+            cells[x-1][y-1]->reveal();
+        if(isValid(x,y-1))
+            cells[x][y-1]->reveal();
+        if(isValid(x+1,y-1))
+            cells[x+1][y-1]->reveal();
+
+
+        //TODO:recurse
+        //Downleft
+        
+
     }
-    // if(isValid(x,y+1)&&cells[x][y+1]->getType().compare("bomb")==0){
-    //     cout<<"bomb down"<<endl;
-    // }
+
     //else recurse
   
 
-    return;
+    //return;
     
 }
 //string Cell:getString(){
 //    text.get
 //}
 
+void Cell::reveal(){
+    //Overwritten function 
+    //revealed =true
+return;
+}
+
+void Cell::setReveal(bool b){
+    revealed = b;
+}
+
+bool Cell::isRevealed(){
+    return revealed;
+}
+
+bool Cell::isFlagged(){
+    return Flagged;
+}

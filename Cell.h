@@ -18,9 +18,9 @@ class Cell{
 
 private:
     int x, y,xInd,yInd;
-    bool isFlagged;
+    bool Flagged;
     bool isActive;
-    bool isRevealed;
+    bool revealed;
     int adjMines;
     string type;
     sf::RectangleShape body;
@@ -30,10 +30,11 @@ private:
     
 
 public:
+    //bool isRevealed;
     void setType(string);
     void drawB(sf::RenderWindow& window);
     void drawT(sf::RenderWindow& window);
-    void display(sf::RenderWindow& window);
+  
     sf::RectangleShape getBody();
     sf::Text getText();
     string getType();
@@ -47,7 +48,7 @@ public:
     void onRightClick();
     virtual void print() const;
     void draw(sf::RenderWindow&);
-    void setBodyColor(sf::Color&);
+    void setBodyColor(const sf::Color&);
     void setTextColor(sf::Color&);
     void setTextPosition(int, int);
     void setAdjMines(int);
@@ -56,9 +57,14 @@ public:
     bool isHover(int,int);
     void setText(string);
     void flag();
+    void unflag();
     string getString();
     int getAdjMines();
+    virtual void reveal();
     void revealRecursive(Cell * cells[][GRIDSIZE],Cell* cell);
+    void setReveal(bool);
+    bool isRevealed();
+    bool isFlagged();
 
 };
 
