@@ -48,19 +48,42 @@ int main(){
     sf::Color blueColor;
     blueColor = sf::Color::Blue;
 
-    //int xx[]={9,5,2,3,4,5,6,4,8,9};
-    //int yy[]={9,5,3,2,4,8,4,7,1,9};
     
-    //Create bombs in random positions
+    // Get random array of positions without repetition
+    int xx[10];
+    int yy[10];
+    
+    //Make a new array when ever there is a repeated positions
+    int n=0;
     srand( time(0) );
+    do{
+        n=0;
+        for (int i=0;i<BOMBNUMBER;i++){
+            int x=getRandomNumber(0,GRIDSIZE-1);
+            int y=getRandomNumber(0,GRIDSIZE-1);
+            xx[i]=x;
+            yy[i]=y;
+        }
+        for (int i=0;i<BOMBNUMBER;i++){
+            for (int j=0;j<BOMBNUMBER;j++){
+                if(xx[i]==xx[j]&&yy[i]==yy[j])
+                n++;
+            }
+        }
+
+        //cout<<n<<endl;
+
+    }while(n>BOMBNUMBER);
+
+    //Create bombs in random positions
     for (int i=0;i<BOMBNUMBER;i++){
 
-        //Random positions
-        int x=getRandomNumber(0,GRIDSIZE-1);
-        int y=getRandomNumber(0,GRIDSIZE-1);
+        //Get positions from random array
+        int x=xx[i];
+        int y=yy[i];
 
         //Instantiate bomb objects
-        bombs[i]=new Bomb("b",x*CELLSIZE,y*CELLSIZE,arial,CELLSIZE);
+        bombs[i]=new Bomb("",x*CELLSIZE,y*CELLSIZE,arial,CELLSIZE);
         cells[x][y]=bombs[i];
         cells[x][y]->setTextPosition(x*CELLSIZE+CELLSIZE/4,y*CELLSIZE+CELLSIZE/4);
 
@@ -164,7 +187,7 @@ int main(){
                                     minesLeft--;
                                 }
                             }
-                            else{
+                            else if(!cells[i][j]->isRevealed()){
 
                                 if(cells[i][j]->getType().compare("bomb")==0){
                                     minesLeft++;

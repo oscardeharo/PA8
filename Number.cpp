@@ -9,6 +9,7 @@ void Number::onClick(){
 }
 
 void Number::reveal(){
+    Cell::reveal();
     setBodyColor(sf::Color(220,220,220));
     setReveal(true);
     if(getAdjMines()>0){

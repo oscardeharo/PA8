@@ -351,7 +351,7 @@ void Cell::revealRecursive(Cell *cells[][GRIDSIZE],Cell* cell){
 
 void Cell::reveal(){
     //Overwritten function 
-    //revealed =true
+    revealed =true;
 return;
 }
 
